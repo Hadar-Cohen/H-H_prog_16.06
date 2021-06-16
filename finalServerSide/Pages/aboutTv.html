@@ -18,6 +18,7 @@
         #poster {
             /*z-index:1;*/
             float: left;
+            z-index: 2;
         }
 
         #poster > img {
@@ -26,6 +27,7 @@
             display: block;
             margin: 0 auto;
             border-radius: 10px;
+            z-index:-1;
         }
         /*actorsCards:*/
         .row {
@@ -112,8 +114,8 @@
         }
 
         function showTVData() {
-            //let backdropImg = "<img src='" + series.extras.Backdrop_path + "'>";
-            //$("#backgroundPorter").html(backdropImg);
+            let backdropImg = "<img src='" + series.extras.Backdrop_path + "'>";
+            $("#backgroundPorter").html(backdropImg);
 
             let posterURL = series.seriesObj.Poster_path;
             let poster = "<img src='" + posterURL + "'/>";
