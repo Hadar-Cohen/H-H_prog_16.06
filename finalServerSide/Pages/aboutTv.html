@@ -10,11 +10,19 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
+    <link href="aboutStyle.css" rel="stylesheet" />
     <meta charset="utf-8" />
     <title>Actors</title>
 
     <style>
+        .title {
+            background-color: powderblue;
+            width:100%;
+        }
+
+        body {
+            background-color: #1e212d;
+        }
         #poster {
             /*z-index:1;*/
             float: left;
@@ -149,7 +157,7 @@
 
         function getCredistSuccess(credits) {
             console.log(credits);
-            actorsList = "<div class='container'><h3>Actors:</h3>";
+            actorsList = "<div class='container'><div class='title'><h3>Actors:</h3></div>";
             actorsList += "<div class='row'>";
             $("#actors").html(actorsList);
             
@@ -197,7 +205,7 @@
 
    
 </head>
-<body>
+<body >
     <div class="header">
         <div class="container-fluid" id="backgroundPorter">
             <div class="left" id="poster"></div>

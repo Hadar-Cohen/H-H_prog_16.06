@@ -56,3 +56,7 @@
         mask-image: linear-gradient(to right, rgba(7.84%, 8.24%, 11.76%, 1.00) 150px, rgba(7.84%, 8.24%, 11.76%, 0.84) 100%);
         -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%);
     }
+    #actor > h3{
+        background-color: powderblue;
+    }
+
