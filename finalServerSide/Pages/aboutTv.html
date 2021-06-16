@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <link href="insertStyle.css" rel="stylesheet" />
     <meta charset="utf-8" />
     <title>Actors</title>
 
@@ -20,13 +19,13 @@
             float: left;
         }
 
-            #poster > img {
-                margin-top: 20px;
-                height: 400px;
-                display: block;
-                margin: 0 auto;
-                border-radius: 10px;
-            }
+        #poster > img {
+            margin-top: 20px;
+            height: 400px;
+            display: block;
+            margin: 0 auto;
+            border-radius: 10px;
+        }
         /*actorsCards:*/
         .row {
             align-items: stretch;
@@ -38,7 +37,7 @@
         }
 
         .card {
-            max-width: 170px;
+            max-width: 110px;
             padding: .75rem;
             margin-bottom: 2rem;
             border: 0;
@@ -55,7 +54,7 @@
 
             .card > img {
                 margin-bottom: .75rem;
-                max-height: 170px;
+                max-height: 110px;
                 width: 100%;
                 border-radius: 50%;
             }
@@ -71,6 +70,7 @@
 
         #backgroundPorter > img {
             width:100%;
+            height:550px;
             mask-image: linear-gradient(to right, rgba(7.84%, 8.24%, 11.76%, 1.00) 150px, rgba(7.84%, 8.24%, 11.76%, 0.84) 100%);
             -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%);
         }
@@ -81,7 +81,7 @@
         $(document).ready(function () {
             
             key = "90f77ef6862d870eb9f5fff3bc587100";
-            k = 0;
+            
             url = "https://api.themoviedb.org/";
             imagePath = "https://image.tmdb.org/t/p/w500/";
             // 64467
@@ -93,7 +93,7 @@
             if (localStorage.series != null) {
                 series = JSON.parse(localStorage["series"]);
                 console.log(series.extras.Backdrop_path);
-                
+                tvId = series.seriesObj.Id;
             }
 
             showTVData();
@@ -101,13 +101,23 @@
         });
 
         function getActors() {
-            let name = series.seriesObj.Name;
+            name = series.seriesObj.Name;
             let method = "3/search/tv?";
             let api_key = "api_key=" + key;
             let moreParams = "&language=en-US&page=1&include_adult=false&";
             let query = "query=" + encodeURIComponent(name);
             let apiCall = url + method + api_key + moreParams + query;
             ajaxCall("GET", apiCall, "", getCredistSuccess, getCredistError);
+
+
+            /////////
+            //let name = series.seriesObj.Name;
+            //let method = "3/search/tv?";
+            //let api_key = "api_key=" + key;
+            //let moreParams = "&language=en-US&page=1&include_adult=false&";
+            //let query = "query=" + encodeURIComponent(name);
+            //let apiCall = url + method + api_key + moreParams + query;
+            //ajaxCall("GET", apiCall, "", getCredistSuccess, getCredistError);
         }
 
         function showTVData() {
@@ -139,13 +149,12 @@
         }
 
 
-        function getCredistSuccess(cast) {
-            console.log(cast);
+        function getCredistSuccess(credits) {
+            console.log(credits);
             actorsList = "<div class='container'><h3>Actors:</h3>";
             actorsList += "<div class='row'>";
             $("#actors").html(actorsList);
-            let tvId = series.seriesObj.Id;
-
+            
             let method = "3/tv/";
             let api_key = "api_key=" + key;
 
@@ -156,8 +165,9 @@
         function getCredistError(err) {
             alert("ERROR");
         }
-
-        function getCastSuccessCB(cast) {
+        k = 0;
+        function getCastSuccessCB(credit) {
+/*            console.log(credit.cast[k]);*/
             //actorsList += "<div id='cast_scroller' class='scroller_wrap should_fade is_fading'>";
             //actorsList += "<ul class='people scroller'>";
             //actorsList += "<li class='card'><img src='" + imagePath + credit.cast[k].profile_path + "' alt='Avatar' style='width: 250px; height: 300px;'>";
@@ -166,14 +176,14 @@
 
             actorsList += "<div class='card'>";
             actorsList += "<img src='" + imagePath + credit.cast[k].profile_path + "'style='width:100%'>";
-            actorsList += "<h3 class='card-text' style='text-align:center'><b>" + credit.cast[k].name + "</b></h3></div>";
-            if (k % 5 == 4)
-                actorsList += "</div>";
+            actorsList += "<h4 class='card-text' style='text-align:center'><b>" + credit.cast[k].name + "</b></h4></div>";
+            //if (k % 5 == 4)
+            //    actorsList += "</div>";
 
             k++;
-            if (k % 5 == 0) {
-                actorsList += "<div class='row'>";
-            }
+            //if (k % 5 == 0) {
+            //    actorsList += "<div class='row'>";
+            //}
             if (k > 10)
                 getCastErrorCB();
             $("#actors").html(actorsList);
@@ -206,9 +216,7 @@
         </div>
         
     </div>
-    <div class="actors">
-        <h3>Actors:</h3>
-    </div>
+    <div id="actors"></div>
     
 </body>
 </html>
