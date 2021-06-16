@@ -95,7 +95,6 @@
 
             if (localStorage.series != null) {
                 series = JSON.parse(localStorage["series"]);
-                console.log(series.extras.Backdrop_path);
                 tvId = series.seriesObj.Id;
             }
 
@@ -114,15 +113,18 @@
         }
 
         function showTVData() {
-            let backdropImg = "<img src='" + series.extras.Backdrop_path + "'>";
-            $("#backgroundPorter").html(backdropImg);
 
             let posterURL = series.seriesObj.Poster_path;
             let poster = "<img src='" + posterURL + "'/>";
-            $("#poster").append(poster);
+            $("#poster").html(poster);
+
+            let backdropImg = "<img src='" + series.extras.Backdrop_path + "'>";
+            $("#backgroundPorter").append(backdropImg);
+
+           
 
             //let stars = 5;
-            //let popularity = tv.results[0].popularity;
+            //let popularity =  series.seriesObj.Popularity;
             //switch (true) {
             //    case (popularity < 40):
             //        stars = 1
@@ -160,12 +162,6 @@
         }
         k = 0;
         function getCastSuccessCB(credit) {
-/*            console.log(credit.cast[k]);*/
-            //actorsList += "<div id='cast_scroller' class='scroller_wrap should_fade is_fading'>";
-            //actorsList += "<ul class='people scroller'>";
-            //actorsList += "<li class='card'><img src='" + imagePath + credit.cast[k].profile_path + "' alt='Avatar' style='width: 250px; height: 300px;'>";
-            //actorsList += "<h5 class= 'chatacter'>" + credit.cast[k].name + "</h5>";
-            //actorsList += "</div>";
 
             actorsList += "<div class='card'>";
             actorsList += "<img src='" + imagePath + credit.cast[k].profile_path + "'style='width:100%'>";
