@@ -16,6 +16,7 @@
 
     <style>
         #poster {
+            /*z-index:1;*/
             float: left;
         }
 
@@ -108,25 +109,15 @@
             let query = "query=" + encodeURIComponent(name);
             let apiCall = url + method + api_key + moreParams + query;
             ajaxCall("GET", apiCall, "", getCredistSuccess, getCredistError);
-
-
-            /////////
-            //let name = series.seriesObj.Name;
-            //let method = "3/search/tv?";
-            //let api_key = "api_key=" + key;
-            //let moreParams = "&language=en-US&page=1&include_adult=false&";
-            //let query = "query=" + encodeURIComponent(name);
-            //let apiCall = url + method + api_key + moreParams + query;
-            //ajaxCall("GET", apiCall, "", getCredistSuccess, getCredistError);
         }
 
         function showTVData() {
-            let backdropImg = "<img src='" + series.extras.Backdrop_path + "'>";
-            $("#backgroundPorter").html(backdropImg);
+            //let backdropImg = "<img src='" + series.extras.Backdrop_path + "'>";
+            //$("#backgroundPorter").html(backdropImg);
 
-            let posterURL = series.seriesObj.PosterURL;
-            let poster = "<img src='" + posterURL; + "'/>";
-            $("#poster").html(poster);
+            let posterURL = series.seriesObj.Poster_path;
+            let poster = "<img src='" + posterURL + "'/>";
+            $("#poster").append(poster);
 
             //let stars = 5;
             //let popularity = tv.results[0].popularity;
@@ -207,16 +198,15 @@
 </head>
 <body>
     <div class="header">
-        <div class="container-fluid"  id="backgroundPorter">
+        <div class="container-fluid" id="backgroundPorter">
             <div class="left" id="poster"></div>
             <div class="right">
                 <h3>Name of TV SHOW + air_date_year </h3>
-                
+
             </div>
         </div>
-        
+
     </div>
     <div id="actors"></div>
-    
 </body>
 </html>
