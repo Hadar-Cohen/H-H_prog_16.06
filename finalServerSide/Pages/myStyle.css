@@ -535,3 +535,6 @@ p{
     width:100%;
     display:block;
 }
+#search_input, #genreTB, #gender {
+    color: black;
+}

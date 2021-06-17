@@ -6,7 +6,7 @@
     $("#phView").html(str);
 
 
-    alert(idtvHadar)
+    //alert(idtvHadar)
 }
 function getSeriesErrorCB(err) {
     alert("Error -cant get the Series names")
