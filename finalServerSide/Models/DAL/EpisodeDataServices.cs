@@ -36,7 +36,6 @@ namespace Ex2.Models.DAL
                 // write to log
                 throw (ex);
             }
-
             String episodeQuery = "INSERT INTO Episode_2021 (episodeId,seriesId, seriesName, seasonNum,episodeName,imageURL,overview,airDate) VALUES (@episodeId,@seriesId,@seriesName,@seasonNum,@episodeName,@imageURL,@overview,@airDate)";
 
             using (SqlCommand command = new SqlCommand(episodeQuery, con))
@@ -97,13 +96,14 @@ namespace Ex2.Models.DAL
         {
             SqlConnection con = null;
             List<Episode> episodeList = new List<Episode>();
+            string seriesNameTmp= seriesName.Replace("'", "''");
 
             try
             {
                 con = connect("DBConnectionString"); // create a connection to the database using the connection String defined in the web config file
 
                 String selectSTR = "SELECT E.* From Preferences_2021 as P inner join User_2021 as U  on U.id=P.userId inner join Episode_2021 as E on E.episodeId=P.episodeId ";
-                selectSTR += "Where E.seriesName= '" + seriesName + "'";
+                selectSTR += "Where E.seriesName= '" + seriesNameTmp + "'";
                 SqlCommand cmd = new SqlCommand(selectSTR, con);
 
                 // get a reader

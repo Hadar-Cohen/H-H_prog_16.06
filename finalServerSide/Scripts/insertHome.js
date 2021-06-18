@@ -102,10 +102,11 @@ seriesObj = null;
 //    }
 //}
 function buildTvSeriese(tv) {
+
     seriesObj = {
         Id: tv.results[0].id,
         First_air_date: tv.results[0].first_air_date,
-        Name: tv.results[0].name.replace("'", ' '),
+        Name: tv.results[0].name,
         Origin_country: tv.results[0].origin_country[0],
         Original_language: tv.results[0].original_language,
         Overview: tv.results[0].overview,
@@ -164,7 +165,8 @@ function getSeasonErrorCB(err) {
 function showEpisode(seasonNum) {
     j = 1;
     saveSeasonNum = seasonNum;
-    episodesList = "<tr>";
+    /*episodesList = "<tr>";*/
+    episodesList = "";
     $("#Episodes").html(episodesList);
     let method = "3/tv/";
     let api_key = "api_key=" + key;
@@ -179,7 +181,7 @@ function getEpisodeSuccessCB(episodes) {
     episode = {
         EpisodeId: episodes.id,
         SeriesId: seriesObj.Id,//foreign key
-        SeriesName: seriesObj.Name.replace("'", ' '),
+        SeriesName: seriesObj.Name,
         SeasonNum: episodes.season_number,
         EpisodeName: episodes.name,
         ImageURL: imagePath + episodes.still_path,
@@ -192,13 +194,13 @@ function getEpisodeSuccessCB(episodes) {
     
 
     epArr.push(episode);    //מערך של כל הפרקים
-    episodesList += "<td class='card2'><img class= 'imgCard' id='" + j + "' src='" + episode.ImageURL + "'>";
+    episodesList += "<div class='card2'><img class= 'imgCard' id='" + j + "' src='" + episode.ImageURL + "'>"; //td changed to div
     episodesList += "<div id='episodeBlock'><br><b id='episodeTitle'>" + (episodes.name).slice(0, 17);
     episodesList += "</b></br> " + episodes.air_date + "</br></br><div id='episodeOverView'>" + episodes.overview + "</div></div>";
     if (localStorage.user != undefined) {
         episodesList += "</br><button class='addBtn' id='" + c + "' type='button' onclick=PostToServer(epArr[this.id])> Add </button> </center>";
     }
-    episodesList += "</td>";
+    episodesList += "</div>";
     //if ((c + 1) % 4 == 0)
     //    episodesList += "</tr>";
 
