@@ -29,9 +29,6 @@ namespace Ex2.Controllers
         }
 
         // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
-        }
         //public int Delete(int id)
         //{
         //    User us = new User();
