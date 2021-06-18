@@ -362,9 +362,8 @@ namespace Ex2.Models.DAL
         private String BuildDeletePreferencesCommand(int episodeId, int seriesId, int userId)
         {
             String command;
-            command = "DELETE from Preferences_2021 where userId =" + userId + "and episodeId = " + episodeId + " and seriesId = " + seriesId;
+            command = "DELETE from Preferences_2021 where userId =" + userId + " and episodeId = " + episodeId + " and seriesId = " + seriesId;
             return command;
         }
-
     }
 }

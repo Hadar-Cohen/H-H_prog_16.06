@@ -24,8 +24,6 @@ function getEpisodesSuccessCB(episodes) {
      i = 0;
     while (i < episodes.length) {
         ep = episodes[i];
-        alert(ep.EpisodeName);
-        // episodesList += "</br><button class='addBtn' id='" + c + "' type='button' onclick=PostToServer(epArr[this.id])> Add </button> </center>";
         episodesList += "<td class='card2' style='width:800px height: 700px'><a class='deleteEpisodeBtn' onclick=deleteEpisode(ep) tabindex='0' role='button'>X</a> <center><b><p id='episodeTitle'>" + episodes[i].SeriesName + " season " + episodes[i].SeasonNum + "</p></b></center><img class= 'imgCard' src='" + episodes[i].ImageURL + "'>";
         episodesList += "<div id='episodeBlock'><br><b>" + episodes[i].EpisodeName + "</b></br > " + episodes[i].AirDate + "</br></br><div id='episodeOverView'>" + episodes[i].Overview + "</div></div></td>";
 
@@ -48,11 +46,8 @@ function exitFunc() {
 }
 
 function deleteEpisode(episode) {
-    // let api = "../api/Users?email=" + email + "&password=" + pass;
-    alert("hi");
-    console.log("hi"+episode);
-    //let api = "../api/Totals?episodeId=" + episode.EpisodeId + "&episode.SeriesId" + seriesId + "&userId" + user.Id;
-    //ajaxCall("DELETE", api, "", deleteEpisodesSuccess, Error);
+    let api = "../api/Totals?episodeId=" + episode.EpisodeId + "&seriesId=" + episode.SeriesId + "&userId=" + user.Id;
+    ajaxCall("DELETE", api, "", deleteEpisodesSuccess, Error);
 }
 
 function deleteEpisodesSuccess()

@@ -39,18 +39,6 @@ function getTV() {
 }
 
 
-////////////////////////////////////////////////////////////
-function slide() {
-    strb = "<div class='container my-4'><hr class='mb-5'/>";
-    strb += "<div id='multi-item-example' class='carousel slide carousel-multi-item' data-ride='carousel'>";
-    strb += "<div class='controls-top'>";
-    strb += " <a class='btn-floating' href='#multi-item-example' data-slide='prev'><i class='fas fa-chevron-left'></i></a>";
-    strb += "<a class='btn-floating' href='#multi-item-example' data - slide='next' > <i class='fas fa-chevron-right'></i></a >";
-    strb += "</div> <div class='carousel-inner' role='listbox'>";
-
-}
-
-
 //Show the TVSohw 
 function getTVSuccessCB(tv) {
     buildTvSeriese(tv);
@@ -59,7 +47,7 @@ function getTVSuccessCB(tv) {
     seasonsList = "<span>";
     tvId = tv.results[0].id;
     posterURL = tv.results[0].poster_path
-    let poster = imagePath + posterURL;//<button id='aboutBtn' onclick='aboutPage()'>TV SHOW about</button>
+    let poster = imagePath + posterURL;
     str = "<img src='" + poster + "'/><button id='aboutBtn' onclick='aboutPage()'>TV SHOW about</button>";
     let stars = 5;
     let popularity = tv.results[0].popularity;
@@ -89,18 +77,6 @@ function getTVSuccessCB(tv) {
 
 //create obj for sql table - in button "add" we send it to the sql table
 seriesObj = null;
-//function buildTvSeriese(tv) {
-//    seriesObj = {
-//        Id: tv.results[0].id,
-//        First_air_date: tv.results[0].first_air_date,
-//        Name: tv.results[0].name,
-//        Origin_country: tv.results[0].origin_country[0],
-//        Original_language: tv.results[0].original_language,
-//        Overview: tv.results[0].overview,
-//        Popularity: tv.results[0].popularity,
-//        Poster_path: imagePath + tv.results[0].poster_path
-//    }
-//}
 function buildTvSeriese(tv) {
 
     seriesObj = {

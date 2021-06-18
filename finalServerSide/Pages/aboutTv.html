@@ -140,7 +140,8 @@
                 tvId = series.seriesObj.Id;
             }
             showTVData();
-            getCredists();
+            getCredists();// get actors
+            getRecommendations();
         });
 
         function showTVData() {
@@ -192,7 +193,7 @@
         function getCastSuccessCB(credit) {
 
             actorsList += "<div class='card'>";
-            actorsList += "<img src='" + imagePath + credit.cast[k].profile_path + "'style='width:100%'>";
+            actorsList += "<img src='" + imagePath + credit.cast[k].profile_path + "' style='width:100%'>";
             actorsList += "<h4 class='card-text' style='text-align:center'><b>" + credit.cast[k].name + "</b></h4></div>";
             //if (k % 5 == 4)
             //    actorsList += "</div>";
@@ -201,8 +202,10 @@
             //if (k % 5 == 0) {
             //    actorsList += "<div class='row'>";
             //}
-            if (k > 5)
-                getCastErrorCB();
+            //if (k > 5) {
+            //    actorsList += "</div></div>";
+            //    $("#actors").html(actorsList);
+            //}
             $("#actors").html(actorsList);
 
             let method = "3/tv/";
@@ -212,30 +215,39 @@
         }
         function getCastErrorCB(err) {
             if (err.status == 404) {
-                actorsList += "</div></div>";
-                $("#actors").html(actorsList);
-                console.log(err);
+                //console.log(err);
             }
+            actorsList += "</div></div>";
+            $("#actors").html(actorsList);
         }
 
         //Reocommanded Series
-        function getRecommendations(apiCall) {
-            actorsList = "<div class='container'>";
-            actorsList += "<div class='row'>";
-            $("#actors").html(actorsList);
+        function getRecommendations() {
+            recList = "<div class='container'>";
+            recList += "<div class='row'>";
+            $("#recommendations").html("HIIII");
 
             let method = "3/tv/";
             let api_key = "api_key=" + key;
 
             let apiCall = url + method + tvId + "/recommendations?" + api_key;
-            ajaxCall("GET", apiCall, "", getRecommendationsCB, getRrecommendationsCB);
+            ajaxCall("GET", apiCall, "", getRecommendationsCB, getErrorRecommendationsCB);
         }
+        r = 0;
+        function getSuccessRecommendationsCB(recommendations) {
+            console.log(recommendations);
+            recList += "<div class='card'><h4>" + recommendations.results[0].Name + "</h4>";
+            recList += "<img src='" + imagePath + recommendations.cast[r].profile_path + "'style='width:100%'>";
+            recList += "<h4 class='card-text' style='text-align:center'><b>" + recommendations.cast[r].name + "</b></h4></div>";
 
-        function getRecommendationsCB(recommendations) {
+
+            //posterURL = tv.results[0].poster_path
+            //let poster = imagePath + posterURL;
+            //str = "<img src='" + poster + "'/>";
 
         }
-        function getRecommendationsCB(err) {
-
+        function ErrorRecommendationsCB(err) {
+            alert("ERROR");
         }
     </script>
 
@@ -255,5 +267,7 @@
     <div class='title'><a>Actors:</a></div>
     <div id="actors"></div>
     <div id="recommendations"></div>
+
+
 </body>
 </html>

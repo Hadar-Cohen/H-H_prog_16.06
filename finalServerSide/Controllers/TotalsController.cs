@@ -31,7 +31,7 @@ namespace Ex2.Controllers
         public void Delete(int episodeId, int seriesId, int userId)
         {
             Total total = new Total();
-             total.DeletePreferences(episodeId, seriesId,userId);
+             total.DeletePreferences(episodeId, seriesId, userId);
         }
         
         // DELETE api/<controller>/5
