@@ -505,30 +505,30 @@ p{
     width: 200px;
 }
 
-#actors > .actorCard {
+/*#actors > .actorCard {*/
     /* Add shadows to create the "card" effect */
     /*box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     border-radius: 5px;*/ /* 5px rounded corners */
     /*width: 40%;*/
 
-}
+/*}*/
 
 /*On mouse-over, add a deeper shadow */
-    #actors > .actorCard:hover {
+    /*#actors > .actorCard:hover {
         box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    }
+    }*/
 
 /* Add some padding inside the card container */
-.actorContainer {
+/*.actorContainer {
     padding: 2px 16px;
 }
 
 .actorCard {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    border-radius: 5px; /* 5px rounded corners */
-    width: 40%;
+    border-radius: 5px;*/ /* 5px rounded corners */
+    /*width: 40%;
     display: inline-block;
     float: left;
     max-inline-size: 200px;
@@ -542,7 +542,7 @@ p{
 .actorImg {
     width:100%;
     display:block;
-}
+}*/
 #search_input, #genreTB, #gender {
     color: black;
 }
