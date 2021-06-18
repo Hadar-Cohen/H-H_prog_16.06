@@ -23,7 +23,9 @@ function getEpisodesSuccessCB(episodes) {
     console.log(episodes);
     var i = 0;
     while (i < episodes.length) {
-        episodesList += "<td class='card2' style='width:800px height: 700px'><center><b><p id='episodeTitle'>" + episodes[i].SeriesName + " season " + episodes[i].SeasonNum + "</p></b></center><img class= 'imgCard' src='" + episodes[i].ImageURL + "'>";
+        // 
+        //<button id='deleteEpisodeBtn' onclick='deleteEpisode()'>X</button>
+        episodesList += "<td class='card2' style='width:800px height: 700px'><a id='deleteEpisodeBtn' onclick='deleteEpisode()' tabindex='0' role='button'>X</a> <center><b><p id='episodeTitle'>" + episodes[i].SeriesName + " season " + episodes[i].SeasonNum + "</p></b></center><img class= 'imgCard' src='" + episodes[i].ImageURL + "'>";
         episodesList += "<div id='episodeBlock'><br><b>" + episodes[i].EpisodeName + "</b></br > " + episodes[i].AirDate + "</br></br><div id='episodeOverView'>" + episodes[i].Overview + "</div></div></td>";
 
         if ((i + 1) % 4 == 0)

@@ -538,3 +538,21 @@ p{
 #search_input, #genreTB, #gender {
     color: black;
 }
+#aboutBtn {
+    font-size: 16px;
+    height: 30px;
+    left: 10px;
+    border-radius: 10px;
+    justify-content: center;
+    background-color: #e6ebff;
+    color: black;
+    border: 2px solid black;
+}
+#deleteEpisodeBtn {
+    font-size: 16px;
+    height: 30px;  
+}
+#deleteEpisodeBtn:hover{
+   color:red;
+
+}

@@ -59,8 +59,8 @@ function getTVSuccessCB(tv) {
     seasonsList = "<span>";
     tvId = tv.results[0].id;
     posterURL = tv.results[0].poster_path
-    let poster = imagePath + posterURL;
-    str = "<img src='" + poster + "'/>";
+    let poster = imagePath + posterURL;//<button id='aboutBtn' onclick='aboutPage()'>TV SHOW about</button>
+    str = "<img src='" + poster + "'/><button id='aboutBtn' onclick='aboutPage()'>TV SHOW about</button>";
     let stars = 5;
     let popularity = tv.results[0].popularity;
     switch (true) {
