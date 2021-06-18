@@ -27,7 +27,13 @@ namespace Ex2.Controllers
         public void Put(int id, [FromBody] string value)
         {
         }
-
+        //
+        public void Delete(int episodeId, int seriesId, int userId)
+        {
+            Total total = new Total();
+             total.DeletePreferences(episodeId, seriesId,userId);
+        }
+        
         // DELETE api/<controller>/5
         //public int Delete(int id)
         //{
