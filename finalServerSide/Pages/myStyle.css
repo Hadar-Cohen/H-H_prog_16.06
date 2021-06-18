@@ -556,11 +556,12 @@ p{
     color: black;
     border: 2px solid black;
 }
-#deleteEpisodeBtn {
+.deleteEpisodeBtn {
     font-size: 16px;
-    height: 30px;  
+    height: 30px;
+    float: left;
 }
-#deleteEpisodeBtn:hover{
+.deleteEpisodeBtn:hover{
    color:red;
 
 }

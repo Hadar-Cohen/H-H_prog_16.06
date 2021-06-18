@@ -17,15 +17,16 @@ function showEpisodes(series) {
     episodesList = "<tr>";
     console.log(selectedText);
     let api = "../api/Episodes?SeriesName=" + selectedText;
-    ajaxCall("GET", api, "", getEpisodesSuccessCB, getEpisodesErrorCB);
+    ajaxCall("GET", api, "", getEpisodesSuccessCB, Error);
 }
 function getEpisodesSuccessCB(episodes) {
     console.log(episodes);
-    var i = 0;
+     i = 0;
     while (i < episodes.length) {
-        // 
-        //<button id='deleteEpisodeBtn' onclick='deleteEpisode()'>X</button>
-        episodesList += "<td class='card2' style='width:800px height: 700px'><a id='deleteEpisodeBtn' onclick='deleteEpisode()' tabindex='0' role='button'>X</a> <center><b><p id='episodeTitle'>" + episodes[i].SeriesName + " season " + episodes[i].SeasonNum + "</p></b></center><img class= 'imgCard' src='" + episodes[i].ImageURL + "'>";
+        ep = episodes[i];
+        alert(ep.EpisodeName);
+        // episodesList += "</br><button class='addBtn' id='" + c + "' type='button' onclick=PostToServer(epArr[this.id])> Add </button> </center>";
+        episodesList += "<td class='card2' style='width:800px height: 700px'><a class='deleteEpisodeBtn' onclick=deleteEpisode(ep) tabindex='0' role='button'>X</a> <center><b><p id='episodeTitle'>" + episodes[i].SeriesName + " season " + episodes[i].SeasonNum + "</p></b></center><img class= 'imgCard' src='" + episodes[i].ImageURL + "'>";
         episodesList += "<div id='episodeBlock'><br><b>" + episodes[i].EpisodeName + "</b></br > " + episodes[i].AirDate + "</br></br><div id='episodeOverView'>" + episodes[i].Overview + "</div></div></td>";
 
         if ((i + 1) % 4 == 0)
@@ -33,16 +34,28 @@ function getEpisodesSuccessCB(episodes) {
         i++;
         if ((i + 1) % 4 == 1)
             episodesList += "<tr>";
-
     }
     episodesList += "</tr>";
     $("#episodesView").html(episodesList);
-
 }
-function getEpisodesErrorCB(err) {
+function Error(err) {
     console.log(err);
 }
+
 function exitFunc() {
     localStorage.clear();
     document.location = 'insert_signup.html';
+}
+
+function deleteEpisode(episode) {
+    // let api = "../api/Users?email=" + email + "&password=" + pass;
+    alert("hi");
+    console.log("hi"+episode);
+    //let api = "../api/Totals?episodeId=" + episode.EpisodeId + "&episode.SeriesId" + seriesId + "&userId" + user.Id;
+    //ajaxCall("DELETE", api, "", deleteEpisodesSuccess, Error);
+}
+
+function deleteEpisodesSuccess()
+{
+    alert('deleted');
 }
