@@ -41,5 +41,12 @@ namespace Ex2.Models
             TotalDBServices tDB = new TotalDBServices();
             return tDB.GetSeries(userId);
         }
+
+        //DeletePreferences///.......
+        public void DeletePreferences(int episodeId, int seriesId, int userId)
+        {
+            TotalDBServices tDB = new TotalDBServices();
+            tDB.DeletePreferences(episodeId,seriesId, userId);
+        }
     }
 }
