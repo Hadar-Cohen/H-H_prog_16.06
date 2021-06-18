@@ -230,6 +230,7 @@ namespace Ex2.Models.DAL
                     throw (ex);
                 }
                 String cStr = BuildUpdateEpisodeCommand(preferencesCount, seriesId, episodeId);      // helper method to build the insert string
+
                 cmd = CreateCommand(cStr, con);             // create the command
 
                 try
@@ -279,6 +280,89 @@ namespace Ex2.Models.DAL
             String prefix = "UPDATE Episode_2021";
             String end = "WHERE seriesId= " + seriesId + " and episodeId = " + episodeId;
             command = prefix + sb.ToString() + end;
+            return command;
+        }
+
+        //DeletePreferences
+        public int DeletePreferences(int episodeId, int seriesId, int userId)
+        {
+            //int numEffected;
+            int columnValue = 0;
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = connect("DBConnectionString"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            String cStr = BuildDeletePreferencesCommand(episodeId, seriesId, userId);      // helper method to build the insert string
+
+            cmd = CreateCommand(cStr, con);             // create the command
+
+            try
+            {
+                int numEffected = cmd.ExecuteNonQuery(); // execute the (insert) command
+                //update command: (countPreferSeries)
+                String selectSTRseries = "Select count(distinct userId) as 'countPreferSeries' from Preferences_2021 where seriesId=" + seriesId;
+                cmd = CreateCommand(selectSTRseries, con);
+
+                // get a reader
+                SqlDataReader dr1 = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+                if (dr1.Read())
+                {   // Read till the end of the data into a row
+                    string column = dr1["countPreferSeries"].ToString();
+                    columnValue = Convert.ToInt32(dr1["countPreferSeries"]);
+                }
+                UpdatePreferencesSeriesCount(columnValue, seriesId);
+
+                ///////////////////////////////////////////////////////////////////////////
+                con = connect("DBConnectionString"); // create the connection
+                //update command: (countPreferEpisodes)
+                String selectSTRepisode = "Select count(distinct userId) as 'countPreferEpisodes' from Preferences_2021 where seriesId=" + seriesId + " and episodeId=" + episodeId;
+                cmd = CreateCommand(selectSTRepisode, con);
+
+                // get a reader
+                SqlDataReader dr2 = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+                if (dr2.Read())
+                {   // Read till the end of the data into a row
+                    string column = dr2["countPreferEpisodes"].ToString();
+                    columnValue = Convert.ToInt32(dr2["countPreferEpisodes"]);
+                }
+                UpdatePreferencesEpisodesCount(columnValue, seriesId, episodeId);
+
+                return numEffected;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+
+                }
+            }
+
+        }
+
+        //--------------------------------------------------------------------
+        // Build the DELETE command String///
+        //--------------------------------------------------------------------
+        private String BuildDeletePreferencesCommand(int episodeId, int seriesId, int userId)
+        {
+            String command;
+            command = "DELETE from Preferences_2021 where userId =" + userId + "and episodeId = " + episodeId + " and seriesId = " + seriesId;
             return command;
         }
 

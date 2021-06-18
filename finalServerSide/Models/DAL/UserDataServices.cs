@@ -251,9 +251,9 @@ namespace Ex2.Models.DAL
             }
 
         }
-       
-        /// 
-     
+
+        /// DeleteUser
+
 
         public int DeleteUser(int id)
         {
