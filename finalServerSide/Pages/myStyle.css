@@ -127,7 +127,7 @@ body {
     justify-content: center;
 }
 
-#seasonsList, #Episodes, #episodesView {
+#seasonsList, #episodesView {
     display: table;
     justify-content: center;
     margin: 0 auto;
@@ -136,6 +136,13 @@ body {
     margin-left: auto;
     margin-right: auto;
 }*/
+.episodes-center {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat( auto-fit, minmax(250px, auto) );
+    justify-content: center;
+}
+
 #seasonsList, #Episodes.center {
     /*display: flex;
     flex-direction: column;
@@ -196,6 +203,7 @@ span {
     float: left;
     max-width: 250px;
     height: 360px;
+    width: 500px;/*from td*/
     background-color: #c0c9ed;
 }
 

@@ -163,33 +163,33 @@
 
             let posterURL = series.seriesObj.Poster_path;
             let poster = "<img src='" + posterURL + "'/>";
+
+            let stars = 5;
+            let popularity = series.seriesObj.Popularity;
+            switch (true) {
+                case (popularity < 40):
+                    stars = 1
+                    break;
+                case (popularity < 60):
+                    stars = 2
+                    break;
+                case (popularity < 200):
+                    stars = 3
+                    break;
+                case (popularity < 400):
+                    stars = 4
+                    break;
+            }
+            poster += "<img id='starsPopularity' src= '../images/" + stars + "stars.png'/>";
             $("#poster").html(poster);
 
             let backdropImg = "<img src='" + series.extras.Backdrop_path + "'>";
             $("#backgroundPorter").append(backdropImg);
 
+
             
 
-            //let stars = 5;
-            //let popularity =  series.seriesObj.Popularity;
-            //switch (true) {
-            //    case (popularity < 40):
-            //        stars = 1
-            //        break;
-            //    case (popularity < 60):
-            //        stars = 2
-            //        break;
-            //    case (popularity < 200):
-            //        stars = 3
-            //        break;
-            //    case (popularity < 400):
-            //        stars = 4
-            //        break;
-            //}
-            /*str += "<img id='starsPopularity' src= '../images/" + stars + "stars.png'/>";*/
-
         }
-
 
         function getCredistSuccess(credits) {
             console.log(credits);
