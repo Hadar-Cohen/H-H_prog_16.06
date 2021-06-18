@@ -230,7 +230,6 @@ namespace Ex2.Models.DAL
                     throw (ex);
                 }
                 String cStr = BuildUpdateEpisodeCommand(preferencesCount, seriesId, episodeId);      // helper method to build the insert string
-
                 cmd = CreateCommand(cStr, con);             // create the command
 
                 try

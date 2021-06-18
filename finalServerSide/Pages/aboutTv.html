@@ -124,9 +124,9 @@
         //https://api.themoviedb.org/3/tv/{tv_id}/season/{season_number}?api_key=<<api_key>>&language=en-US
 
         $(document).ready(function () {
-            
+
             key = "90f77ef6862d870eb9f5fff3bc587100";
-            
+
             url = "https://api.themoviedb.org/";
             imagePath = "https://image.tmdb.org/t/p/w500/";
             // 64467
@@ -139,20 +139,9 @@
                 series = JSON.parse(localStorage["series"]);
                 tvId = series.seriesObj.Id;
             }
-
             showTVData();
-            getActors();
+            getCredists();
         });
-
-        function getActors() {
-            let name = series.seriesObj.Name;
-            let method = "3/search/tv?";
-            let api_key = "api_key=" + key;
-            let moreParams = "&language=en-US&page=1&include_adult=false&";
-            let query = "query=" + encodeURIComponent(name);
-            let apiCall = url + method + api_key + moreParams + query;
-            ajaxCall("GET", apiCall, "", getCredistSuccess, getCredistError);
-        }
 
         function showTVData() {
             let name = series.seriesObj.Name;
@@ -185,14 +174,9 @@
 
             let backdropImg = "<img src='" + series.extras.Backdrop_path + "'>";
             $("#backgroundPorter").append(backdropImg);
-
-
-            
-
         }
 
-        function getCredistSuccess(credits) {
-            console.log(credits);
+        function getCredists() {
             actorsList = "<div class='container'>";
             actorsList += "<div class='row'>";
             $("#actors").html(actorsList);
@@ -204,9 +188,6 @@
             ajaxCall("GET", apiCall, "", getCastSuccessCB, getCastErrorCB);
         }
 
-        function getCredistError(err) {
-            alert("ERROR");
-        }
         k = 0;
         function getCastSuccessCB(credit) {
 
@@ -237,6 +218,25 @@
             }
         }
 
+        //Reocommanded Series
+        function getRecommendations(apiCall) {
+            actorsList = "<div class='container'>";
+            actorsList += "<div class='row'>";
+            $("#actors").html(actorsList);
+
+            let method = "3/tv/";
+            let api_key = "api_key=" + key;
+
+            let apiCall = url + method + tvId + "/recommendations?" + api_key;
+            ajaxCall("GET", apiCall, "", getRecommendationsCB, getRrecommendationsCB);
+        }
+
+        function getRecommendationsCB(recommendations) {
+
+        }
+        function getRecommendationsCB(err) {
+
+        }
     </script>
 
    
@@ -254,5 +254,6 @@
     </div>
     <div class='title'><a>Actors:</a></div>
     <div id="actors"></div>
+    <div id="recommendations"></div>
 </body>
 </html>
