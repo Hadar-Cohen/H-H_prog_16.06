@@ -32,5 +32,10 @@ namespace Ex2.Controllers
         public void Delete(int id)
         {
         }
+        //public int Delete(int id)
+        //{
+        //    User us = new User();
+        //    return us.Delete(id);
+        //}
     }
 }

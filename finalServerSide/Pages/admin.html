@@ -55,6 +55,7 @@
         // Delete a car from the server
         function DeleteUser(id) {
             ajaxCall("DELETE", "../api/Users/" + id, "", deleteSuccess, error);
+            ///ajaxCall("DELETE", "../api/Totals/" + id, "", deleteSuccess, error);
         }
         function deleteFunc(id) {
             var userId = id.getAttribute('data-userId');

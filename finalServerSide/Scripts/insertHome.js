@@ -105,7 +105,7 @@ function buildTvSeriese(tv) {
     seriesObj = {
         Id: tv.results[0].id,
         First_air_date: tv.results[0].first_air_date,
-        Name: tv.results[0].name,
+        Name: tv.results[0].name.replace("'", ' '),
         Origin_country: tv.results[0].origin_country[0],
         Original_language: tv.results[0].original_language,
         Overview: tv.results[0].overview,
@@ -179,16 +179,20 @@ function getEpisodeSuccessCB(episodes) {
     episode = {
         EpisodeId: episodes.id,
         SeriesId: seriesObj.Id,//foreign key
-        SeriesName: seriesObj.Name,
+        SeriesName: seriesObj.Name.replace("'", ' '),
         SeasonNum: episodes.season_number,
         EpisodeName: episodes.name,
         ImageURL: imagePath + episodes.still_path,
         Overview: episodes.overview,
         AirDate: episodes.air_date
     }
+    if (episodes.still_path == null)
+        episode.ImageURL = imagePath + posterURL;
+      
+    
 
     epArr.push(episode);    //מערך של כל הפרקים
-    episodesList += "<td class='card2'><img class= 'imgCard' id='" + j + "' src='" + imagePath + episodes.still_path + "'>";
+    episodesList += "<td class='card2'><img class= 'imgCard' id='" + j + "' src='" + episode.ImageURL + "'>";
     episodesList += "<div id='episodeBlock'><br><b id='episodeTitle'>" + (episodes.name).slice(0, 17);
     episodesList += "</b></br> " + episodes.air_date + "</br></br><div id='episodeOverView'>" + episodes.overview + "</div></div>";
     if (localStorage.user != undefined) {
@@ -215,7 +219,7 @@ function getEpisodeErrorCB(err) {
     c = 0;
     console.log(err);
 }
-
+totalObj = {};// for corrent inserted alert
 function PostToServer(episodeToAdd) {
     let api = "../api/Totals";
     //add new object for DB
@@ -229,7 +233,7 @@ function PostToServer(episodeToAdd) {
 }
 function postSqlSuccessCB(feedback) {
     if (feedback == 1) //just for user
-        alert("inserted");
+        alert(totalObj.Series.Name + " Season " + totalObj.Episode.SeasonNum + " Episode " + totalObj.Episode.EpisodeName + " inserted ");
     else
         alert("preference already exists");
 
