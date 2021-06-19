@@ -151,6 +151,7 @@ function showEpisode(seasonNum) {
     ajaxCall("GET", apiCall, "", getEpisodeSuccessCB, getEpisodeErrorCB);
 }
 
+//Get Episodes from the TMDB server
 c = 0;
 episode = null;
 function getEpisodeSuccessCB(episodes) {
