@@ -48,7 +48,7 @@ function getTVSuccessCB(tv) {
     tvId = tv.results[0].id;
     posterURL = tv.results[0].poster_path
     let poster = imagePath + posterURL;
-    str = "<img src='" + poster + "'/><button id='aboutBtn' onclick='aboutPage()'>TV SHOW about</button>";
+    str = "<img src='" + poster + "'/>";
     let stars = 5;
     let popularity = tv.results[0].popularity;
     switch (true) {
@@ -65,7 +65,7 @@ function getTVSuccessCB(tv) {
             stars = 4
             break;
     }
-    str += "<img id='starsPopularity' src= '../images/" +stars + "stars.png'/>";
+    str += "<img id='starsPopularity' src= '../images/" + stars + "stars.png'/><button id='aboutBtn' onclick='aboutPage()'>TV SHOW about</button>";
     $("#ph").html(str);
 
     let method = "3/tv/";
@@ -167,7 +167,6 @@ function getEpisodeSuccessCB(episodes) {
     if (episodes.still_path == null)
         episode.ImageURL = imagePath + posterURL;
       
-    
 
     epArr.push(episode);    //מערך של כל הפרקים
     episodesList += "<div class='card2'><img class= 'imgCard' id='" + j + "' src='" + episode.ImageURL + "'>"; //td changed to div

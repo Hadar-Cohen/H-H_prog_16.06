@@ -248,14 +248,15 @@
         r = 0;
         reviews = null;
         function getSuccessReviewsCB(reviewsArr) {
-            if (reviewsArr != undefined) {
+            if (reviewsArr.results != undefined) {
                 reviews = reviewsArr.results;
                 //alert(reviews[0].author_details['avatar_path']);
-                console.log("REV" + reviews);
-                reviewsList = "<div class='rev-card'>";
-                reviewsList = "<img src='" + imagePath + reviews[0].author_details['avatar_path'] + "'>";
-                reviewsList = "<div class='container'><h4><b>" + reviews[0].author + "</b></h4>";
-                reviewsList = "<p>" + reviews[0].content + "</p><h5>Created at: " + reviews[0].created_at + "</h5></div></div></div>";
+                console.log(reviews[0].author_details['avatar_path']);
+
+                reviewsList += "<div class='rev-card'>";
+                reviewsList += "<img src='" + imagePath + reviews[0].author_details['avatar_path'] + "'>";
+                reviewsList += "<div class='container'><h4><b>" + reviews[0].author + "</b></h4>";
+                reviewsList += "<p>" + reviews[0].content + "</p><h5>Created at: " + reviews[0].created_at + "</h5></div></div></div>";
                 $("#reviews").html(reviewsList);
                 r++;
             }
