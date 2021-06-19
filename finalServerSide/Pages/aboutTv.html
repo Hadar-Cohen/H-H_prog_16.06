@@ -9,12 +9,19 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- For reviews: -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 
     <link href="aboutStyle.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <meta charset="utf-8" />
-    <title>Actors</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
 
+    <meta charset="utf-8" />
+    <title>About</title>
+    <style>
+    </style>
     <script>
         //https://api.themoviedb.org/3/tv/{tv_id}/season/{season_number}?api_key=<<api_key>>&language=en-US
 
@@ -43,7 +50,6 @@
         });
 
         //Header of the page -> Show the basic data of the TV show. Taking it from LS.
-        //d
         function showTVData() {
             let name = series.seriesObj.Name;
             $("#tvTitle").html(name);
@@ -157,8 +163,6 @@
         }
 
 
-
-
         function getSimilars() {
             similarList = "<div class='container'>";
             similarList += "<div class='row'>";
@@ -239,38 +243,54 @@
             localStorage.setItem("series", JSON.stringify(totalSeries));
         }
 
+        ////////////////////////////////////////////////Reviews////////////////////////////////////////////////
         function getReviews() {
-            reviewsList = "<div class='reviews'>";
-            $("#reviews").html(reviewsList);
-
+            //reviewsList = "<div class='reviews'>";
+            //$("#reviews").html(reviewsList);
+            reviewsList = "";
+            r = 0;
             let apiCall = url + method + tvId + "/reviews?" + api_key;
             ajaxCall("GET", apiCall, "", getSuccessReviewsCB, errorReviewsCB);
         }
         r = 0;
         reviews = null;
         function getSuccessReviewsCB(reviewsArr) {
+            //reviewsList = "";
+            console.log(reviewsArr.results)
             if (reviewsArr.results != undefined) {
                 reviews = reviewsArr.results;
-                //alert(reviews[0].author_details['avatar_path']);
-                console.log(reviews[0].author_details['avatar_path']);
 
-                reviewsList += "<div class='rev-card'>";
-                reviewsList += "<img src='" + imagePath + reviews[0].author_details['avatar_path'] + "'>";
-                reviewsList += "<div class='container'><h4><b>" + reviews[0].author + "</b></h4>";
-                reviewsList += "<p>" + reviews[0].content + "</p><h5>Created at: " + reviews[0].created_at + "</h5></div></div></div>";
-                $("#reviews").html(reviewsList);
-                r++;
+                //if (reviews[r].author_details['avatar_path'].slice(0, 5) != '"/https:')
+                //    imgAvatar = "https://image.ibb.co/jw55Ex/def_face.jpg";
+                //else
+                //    imgAvatar = imagePath + reviews[r].author_details['avatar_path'];
+
+                imgAvatar = "https://image.ibb.co/jw55Ex/def_face.jpg";
+                reviewsList += `<div class="card"><div class="card-body" ><div class="row">`;
+                reviewsList += `<div class="col-md-2"><img class= "authorImg" src='` + imagePath + reviews[r].author_details['avatar_path'] + `' class="img img-rounded img-fluid" />`;
+                reviewsList += `<p class="text-secondary text-center">` + reviews[r].created_at.slice(0, 10) + `</p></div>`;
+                reviewsList += `<div class="col-md-10"><p><strong>` + reviews[r].author + `</strong></p>`;
+                reviewsList += `<div class="clearfix"></div><p>` + reviews[r].content + `</p>`;
+                reviewsList += `<p><a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
+                            <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a></p>
+                            </div></div></div></div></div>`;
+                
             }
-
             else
                 alert("NO REVIEWS");
-
-            //let apiCall = url + method + tvId + "/reviews?" + api_key;
-            //ajaxCall("GET", apiCall, "", getSuccessReviewsCB, errorReviewsCB);
+            alert(r);
+            $("#reviews").html(reviewsList);
+            r++;
+            let apiCall = url + method + tvId + "/reviews?" + api_key;
+            ajaxCall("GET", apiCall, "", getSuccessReviewsCB, errorReviewsCB);
         }
 
         function errorReviewsCB(err) {
+            //reviewsList += `</div>`;
+            //$("#reviews").html(reviewsList);
+            //$("#reviews").html(reviewsList);
             console.log(err);
+            r = 0;
         }
 
     </script>
@@ -295,5 +315,6 @@
     <div id="similars"></div>
     <div class='title'><a>Reviews:</a></div>
     <div id="reviews"></div>
+
 </body>
 </html>

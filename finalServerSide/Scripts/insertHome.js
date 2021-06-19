@@ -177,13 +177,7 @@ function getEpisodeSuccessCB(episodes) {
         episodesList += "</br><button class='addBtn' id='" + c + "' type='button' onclick=PostToServer(epArr[this.id])> Add </button> </center>";
     }
     episodesList += "</div>";
-    //if ((c + 1) % 4 == 0)
-    //    episodesList += "</tr>";
-
     c++;
-    //if ((c + 1) % 4 == 1) {
-    //    episodesList += "<tr>";
-    //}
 
     $("#Episodes").html(episodesList);
     j++;

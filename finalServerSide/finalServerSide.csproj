@@ -322,6 +322,7 @@
     <Content Include="Pages\login.html" />
     <Content Include="Pages\login_style_sheet.css" />
     <Content Include="Pages\myStyle.css" />
+    <Content Include="Pages\reviewsTry.html" />
     <Content Include="Pages\view.html" />
     <Content Include="Scripts\ajaxCalls.js" />
     <Content Include="Scripts\bootstrap.js" />

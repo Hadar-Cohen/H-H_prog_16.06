@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+    <script src="../Scripts/ajaxCalls.js"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+    <link href="aboutStyle.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <title>Reviews</title>
+
+    <script>
+        $(document).ready(function () {
+
+            key = "90f77ef6862d870eb9f5fff3bc587100";
+
+            url = "https://api.themoviedb.org/";
+            imagePath = "https://image.tmdb.org/t/p/w500/";
+            // 64467
+            // 1416
+            //https://api.themoviedb.org/3/tv/1416/season/0/episode/64467?api_key=1c107f2bd2f3fc2aee24aa4f2f8d8647&language=en-US
+
+            if (localStorage.series != null) {
+                series = JSON.parse(localStorage["series"]);
+                tvId = series.seriesObj.Id;
+            }
+            method = "3/tv/";
+            api_key = "api_key=" + key;
+
+            getReviews();   // Get the reviews for a TV show.
+        });
+        function getReviews() {
+            reviewsList = "<div class='reviews'>";
+            $("#reviews").html(reviewsList);
+
+            let apiCall = url + method + tvId + "/reviews?" + api_key;
+            ajaxCall("GET", apiCall, "", getSuccessReviewsCB, errorReviewsCB);
+        }
+        r = 0;
+        reviews = null;
+        function getSuccessReviewsCB(reviewsArr) {
+            console.log(reviewsArr.results)
+            if (reviewsArr.results != undefined) {
+                reviews = reviewsArr.results;
+
+                //if (reviews[r].author_details['avatar_path'].slice(0, 5) != '"/https:')
+                //    imgAvatar = "https://image.ibb.co/jw55Ex/def_face.jpg";
+                //else
+                //    imgAvatar = imagePath + reviews[r].author_details['avatar_path'];
+
+                //imgAvatar = "https://image.ibb.co/jw55Ex/def_face.jpg";
+                imgAvatar = "https://image.ibb.co/jw55Ex/def_face.jpg";
+                reviewsList += `<div class="card"><div class="card-body" ><div class="row">`;
+                reviewsList += `<div class="col-md-2"><img class= "authorImg" src='` + imagePath + reviews[r].author_details['avatar_path'] + `' class="img img-rounded img-fluid" />`;    
+                reviewsList += `<p class="text-secondary text-center">` + reviews[r].created_at.slice(0,10) + `</p></div>`;
+                reviewsList += `<div class="col-md-10"><p><strong>` + reviews[r].author + `</strong></p>`;
+                reviewsList += `<div class="clearfix"></div><p>` + reviews[r].content +`</p>`;
+                reviewsList += `<p><a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
+                            <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a></p>
+                            </div></div></div></div></div>`;
+                $("#reviews").html(reviewsList);
+                r++;
+            }
+            else
+                alert("NO REVIEWS");
+
+            let apiCall = url + method + tvId + "/reviews?" + api_key;
+            ajaxCall("GET", apiCall, "", getSuccessReviewsCB, errorReviewsCB);
+        }
+
+        function errorReviewsCB(err) {
+            console.log(err);
+        }
+
+    </script>
+</head>
+<body>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <div id="reviews"></div>
+        <!--<h2 class="text-center">Bootstrap 4 User Rating Form / Comment Form</h2>-->
+
+        <!--<div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                        <p class="text-secondary text-center">15 Minutes Ago</p>
+                    </div>
+                    <div class="col-md-10">
+                        <p>
+                            <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>-->
+                            <!--<span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>-->
+
+                        <!--</p>
+                        <div class="clearfix"></div>
+                        <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                        <p>
+                            <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
+                            <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
+                        </p>
+                    </div>
+                </div>-->
+
+
+
+                <!--<div class="card card-inner">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                                <p class="text-secondary text-center">reviews[0].created_at</p>
+                            </div>
+                            <div class="col-md-10">
+                                <p><a href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a></p>
+                                <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                <p>
+                                    <a class="float-right btn btn-outline-primary ml-2">  <i class="fa fa-reply"></i> Reply</a>
+                                    <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+            <!--</div>
+        </div>
+    </div>-->
+</body>
+</html>
